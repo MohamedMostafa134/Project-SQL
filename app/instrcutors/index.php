@@ -1,7 +1,10 @@
 <?php
+include_once '../../env/functions.php';
+auth();
+
 include_once '../../shared/allhead.php';
 $count = 1;
-auth();
+
 $instructors = "SELECT * FROM `instructor_data`";
 $allInstructors = mysqli_query($conn, $instructors);
 

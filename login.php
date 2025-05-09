@@ -1,6 +1,9 @@
 <?php 
-include_once './shared/head.php';
 include_once './env/functions.php';
+
+// guest();
+
+include_once './shared/head.php';
 $message =null;
 
 if(isset($_POST['login'])){
@@ -31,7 +34,6 @@ if(isset($_POST['login'])){
     $message ="Wrong Data";
   }
 }
-guest();
 
 ?>
   <main>

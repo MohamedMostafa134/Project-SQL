@@ -1,4 +1,7 @@
 <?php
+include_once '../../env/functions.php';
+auth();
+
 include_once '../../shared/allhead.php';
 
 
@@ -19,9 +22,9 @@ if (isset($_POST['send'])) {
         $hasImage = true;
     }
     if ($hasImage) {
-        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', '$image_name','$group','student') ";
+        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', '$image_name','$group','students') ";
     } else {
-        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', Default,'$group','student') ";
+        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', Default,'$group','students') ";
     }
 
     $insterStudents = mysqli_query($conn, $createStudent);

@@ -1,11 +1,17 @@
 <?php
-session_start(); 
-include_once 'C:\xampp\htdocs\Final/env/db.php';
+session_start();
+include_once __DIR__ . '/../env/db.php';
+
 define("Base_url", "http://localhost/Final/");
-function url($var = null){
+
+function url($var = null) {
     return Base_url . $var;
 }
 
+// function redirect($var = null) {
+//     header("Location: " . Base_url . $var);
+//     exit;
+// }
 
 function redirect($var = null){
 echo "<script>
@@ -15,40 +21,31 @@ window.location.replace('http://localhost/Final/$var')
 </script>";
 }
 
-if(isset($_POST['CloseSession'])){
-   $fullpath= $_POST['fullpath'];
+// Close success alert session
+if (isset($_POST['CloseSession'])) {
+    $fullpath = $_POST['fullpath'];
     unset($_SESSION['success']);
-    echo "<script>
-
-window.location.replace('$fullpath')
-
-</script>";
-}
-function guest()
-{
-if (isset($_SESSION['auth'])){
-}else {
-  redirect('index.php');
+    header("Location: $fullpath");
+    exit;
 }
 
-function auth()
-{
-if (isset($_SESSION['auth'])){
-}else {
-  redirect('login.php');
-}
-}
+// Auth middleware
+function auth() {
+    if (!isset($_SESSION['auth'])) {
+        redirect('login.php');
+    }
 }
 
-if(isset($_POST['logout'])){
+// Guest middleware
+function guest() {
+    if (!isset($_SESSION['auth'])) {
+        redirect('index.php');
+    }
+}
+
+// Logout
+if (isset($_POST['logout'])) {
     session_unset();
     session_destroy();
     redirect('login.php');
 }
-
-
-
-
-
-
-

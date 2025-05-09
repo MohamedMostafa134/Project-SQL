@@ -1,8 +1,11 @@
 <?php 
+include_once '../../env/functions.php';
+auth();
+
 include_once '../../shared/allhead.php';
 
 $count = 1;
-auth();
+
 if($_GET['view']){
     $id =$_GET['view'];
     $admins = "SELECT * FROM `admin_data` where admin_id= $id ";
@@ -33,11 +36,11 @@ if($_GET['view']){
     <div class="col-lg-6">
 
       <div class="card">
-        <?php if($admin['image']!=null):?>
-      <img src="<?= url('upload/users/') . $admin['image'] ?>" alt="">
-      <?php else :?>
-      <img src="<?= url('assets/images.jpeg') ?>" alt="">   
-      <?PHP endif;?>
+        <?php if (!empty($admin['image'])): ?>
+    <img src="<?= url('upload/users/') . $admin['image'] ?>" alt="">
+          <?php else: ?>
+    <img src="<?= url('assets/images.jpeg') ?>" alt="">   
+          <?php endif; ?>
         <div class="card-body">
           <h5>User user_name:<?= $admin['user_name']?></h5>
           <hr>

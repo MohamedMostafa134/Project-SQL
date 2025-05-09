@@ -1,8 +1,8 @@
 <?php 
-include_once './shared/allhead.php';
+include_once './env/functions.php';
 auth();
 
-
+include_once './shared/allhead.php';
 ?>
   <main id="main" class="main">
 

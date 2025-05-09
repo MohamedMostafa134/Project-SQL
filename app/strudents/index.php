@@ -1,4 +1,7 @@
 <?php
+include_once '../../env/functions.php';
+auth();
+
 include_once '../../shared/allhead.php';
  
 ?>

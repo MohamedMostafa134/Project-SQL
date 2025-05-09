@@ -14,6 +14,14 @@
           <i class="bi bi-grid"></i>
           <span>Admins</span>
         </a>
+          <a class="nav-link " href='app/instrcutors'>
+          <i class="bi bi-grid"></i>
+          <span>Instrcutors</span>
+        </a>
+          <a class="nav-link " href='app/strudents'>
+          <i class="bi bi-grid"></i>
+          <span>Strudents</span>
+        </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-heading">Pages</li>

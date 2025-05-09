@@ -1,7 +1,11 @@
 <?php
+include_once '../../env/functions.php';
+auth();
+
 include_once '../../shared/allhead.php';
 
-auth();
+
+
 $selectDep = "SELECT  * FROM departments";
 $departments = mysqli_query($conn, $selectDep);
 
@@ -41,7 +45,7 @@ if (isset($_POST['send'])) {
     $track = $_POST['track'];
     $linkedin = $_POST['linkedin'];
 
-    $insert_instructor = "INSERT INTO `instructors` VALUES(NULL ,$department,'$track', '$linkedin' , $user_id)";
+   $insert_instructor = "INSERT INTO `instructors` (department_id, track, linkedin, user_id) VALUES ($department, '$track', '$linkedin', $user_id)";
     $insData = mysqli_query($conn, $insert_instructor);
 
     // die;

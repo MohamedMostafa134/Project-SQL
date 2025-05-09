@@ -1,5 +1,3 @@
-<?php include_once 'C:\xampp\htdocs\Final/env/functions.php';?>
-
 <!DOCTYPE html>
 <html lang="en">
 

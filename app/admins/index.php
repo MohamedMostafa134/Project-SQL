@@ -1,8 +1,13 @@
 <?php 
+
+include_once '../../env/functions.php';
+auth();
+
 include_once '../../shared/allhead.php';
 
 $count = 1;
-auth();
+// var_dump($_SESSION['auth']); // remove after testing
+
 $admins = "SELECT * FROM `admin_data`";
 $allAdmins = mysqli_query($conn, $admins);
 
@@ -11,19 +16,22 @@ $allAdmins = mysqli_query($conn, $admins);
 if($_GET['Delete']){
   $id =$_GET['Delete'];
   $admin = "SELECT * FROM `admin_data` where admin_id=$id";
-$oneAdmin = mysqli_query($conn, $admins);
-$admin_Data=mysqli_fetch_assoc($oneAdmin);
-$image_name=$admin_Data['image'];
-$user_id=$admin_Data['user_id'];
-unlink("../../upload/users/$image_name");
+  $oneAdmin = mysqli_query($conn, $admin);
+
+  $admin_Data=mysqli_fetch_assoc($oneAdmin);
+  $image_name=$admin_Data['image'];
+  $user_id=$admin_Data['user_id'];
+  unlink("../../upload/users/$image_name");
 
 
-$adminDelete="DELETE FROM admins where id =$id ";
-mysqli_query($conn ,$adminDelete );
-$UserDelete="DELETE FROM users where id =$user_id ";
-mysqli_query($conn ,$UserDelete );
-$_SESSION['success']="Delete Admin Successfully";
-redirect('app/admins/');
+  $adminDelete="DELETE FROM admins where id =$id ";
+  mysqli_query($conn ,$adminDelete );
+
+  $UserDelete="DELETE FROM users where id =$user_id ";
+  mysqli_query($conn ,$UserDelete );
+
+  $_SESSION['success'] = "Delete Admin Successfully";
+  redirect('app/admins/');
 }
 
 
@@ -80,7 +88,7 @@ redirect('app/admins/');
                 <th>position_name</th>
                 <th>View</th>
                 <th>Edit</th>
-                <th>Deleta</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -92,9 +100,9 @@ redirect('app/admins/');
                 <td><?= $item['user_name']?></td>
                 <td><?= $item['email']?></td>
                 <td><?= $item['position_name']?></td>
-                <td><a class="btn btn-info" href=<?= url("app/admins/view.php?view=<?=") . $item['admin_id'] ?> >View</a></td>
-                <td><a class="btn btn-warning" href=<?= url("app/admins/view.php?Edit=<?=") . $item['admin_id'] ?> >Edit</a></td>
-                <td><a class="btn btn-danger" href=<?= url("app/admins/index.php?Delete=<?=") . $item['admin_id'] ?> ></a>Deleta</td>
+                <td><a class="btn btn-info" href="<?= url('app/admins/view.php?view=' . $item['admin_id']) ?>">View</a></td>
+<td><a class="btn btn-warning" href="<?= url('app/admins/view.php?Edit=' . $item['admin_id']) ?>">Edit</a></td>
+<td><a class="btn btn-danger" href="<?= url('app/admins/index.php?Delete=' . $item['admin_id']) ?>">Delete</a></td>
               </tr>
               <?php endforeach ?>
             </tbody>

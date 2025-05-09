@@ -172,7 +172,7 @@
             <?php if($_SESSION['auth']['image'] ==null ): ?>
               <img src="<?= url('assets/images.jpeg') ?>" alt="Profile" class="rounded-circle">
               <?php  else:?>
-          <img src="<?= url('upload/users/') . $_SESSION['auth']['image'] ?>" alt="Profile" class="rounded-circle">
+          <img src="<?= url('upload/users') . $_SESSION['auth']['image'] ?>" alt="Profile" class="rounded-circle">
             <?php endif;?>
           <span class="d-none d-md-block dropdown-toggle ps-2"><?=$_SESSION['auth']['name']?></span>
           </a><!-- End Profile Iamge Icon -->

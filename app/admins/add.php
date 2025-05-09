@@ -1,7 +1,11 @@
-<<?php 
+<?php 
+
+include_once '../../env/functions.php';
+auth();
+
 include_once '../../env/db.php';
 include_once '../../shared/allhead.php';
-auth();
+
 $SELECTPositions = "SELECT * FROM positions";
 $positions = mysqli_query($conn ,$SELECTPositions);
 
@@ -54,7 +58,7 @@ if(isset($_POST['send'])){
     $insertAdmin= mysqli_query($conn , $createAdmin);
     $_SESSION['success']= "Create Admin Successfully";
 
-    redirect('app/admins/');
+    redirect('app/admins/index.php');
 }
 ?>
 
