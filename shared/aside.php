@@ -10,19 +10,19 @@
         </a>
         <hr>
       <li class="nav-item">
-        <a class="nav-link " href='app/admins'>
+            <a class="nav-link " href='<?= url('app/admins/index.php') ?>'>
           <i class="bi bi-grid"></i>
           <span>Admins</span>
         </a>
-          <a class="nav-link " href='app/instrcutors'>
+          <a class="nav-link " href='<?= url('app/instrcutors/index.php') ?>'>
           <i class="bi bi-grid"></i>
           <span>Instrcutors</span>
         </a>
-          <a class="nav-link " href='app/strudents'>
+          <a class="nav-link " href='<?= url('app/strudents/index.php') ?>'>
           <i class="bi bi-grid"></i>
           <span>Strudents</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
+        </a
+      ><!-- End Dashboard Nav -->
 
       <li class="nav-heading">Pages</li>
 

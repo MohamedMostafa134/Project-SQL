@@ -101,8 +101,8 @@ if($_GET['Delete']){
                 <td><?= $item['email']?></td>
                 <td><?= $item['position_name']?></td>
                 <td><a class="btn btn-info" href="<?= url('app/admins/view.php?view=' . $item['admin_id']) ?>">View</a></td>
-<td><a class="btn btn-warning" href="<?= url('app/admins/view.php?Edit=' . $item['admin_id']) ?>">Edit</a></td>
-<td><a class="btn btn-danger" href="<?= url('app/admins/index.php?Delete=' . $item['admin_id']) ?>">Delete</a></td>
+                <td><a class="btn btn-warning" href="<?= url('app/admins/view.php?Edit=' . $item['admin_id']) ?>">Edit</a></td>
+                <td><a class="btn btn-danger" href="<?= url('app/admins/index.php?Delete=' . $item['admin_id']) ?>">Delete</a></td>
               </tr>
               <?php endforeach ?>
             </tbody>

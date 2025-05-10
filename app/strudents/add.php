@@ -22,9 +22,9 @@ if (isset($_POST['send'])) {
         $hasImage = true;
     }
     if ($hasImage) {
-        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', '$image_name','$group','students') ";
+        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', '$image_name','$group') ";
     } else {
-        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', Default,'$group','students') ";
+        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', Default,'$group') ";
     }
 
     $insterStudents = mysqli_query($conn, $createStudent);

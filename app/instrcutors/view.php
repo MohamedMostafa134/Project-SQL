@@ -4,9 +4,10 @@ auth();
 
 include_once '../../shared/allhead.php';
 
+
 if ($_GET['view']) {
     $id = $_GET['view'];
-    $instructors = "SELECT * FROM `instructor_data` WHERE id = $id ";
+    $instructors = "SELECT * FROM `instructor_data` WHERE ins_id = $id ";
     $allInstructors = mysqli_query($conn, $instructors);
     $instructor = mysqli_fetch_assoc($allInstructors);
 }
@@ -35,7 +36,7 @@ if ($_GET['view']) {
                     <div class="details row justify-content-start">
                         <h5 class="col-10"><strong>Name :</strong> <?= $instructor['name'] ?> </h5>
                         <h5 class="col-10"><strong>Email :</strong> <?= $instructor['email'] ?> </h5>
-                        <h5 class="col-10"><strong>Department :</strong> <?= $instructor['department'] ?> </h5>
+                        <h5 class="col-10"><strong>Department :</strong> <?= $instructor['dep_name'] ?> </h5>
                         <h5 class="col-10"><strong>Track :</strong> <?= $instructor['track'] ?> </h5>
                         <h5 class="col-10"><strong>Linkedin Profile :</strong> <?= $instructor['linkedin'] ?> </h5>
                     </div>

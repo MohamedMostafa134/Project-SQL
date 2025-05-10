@@ -80,9 +80,9 @@ $allInstructors = mysqli_query($conn, $instructors);
                                         <td><?= $item['track'] ?></td>
                  <td><?= $item['name'] ?></td>
                  <td><?= $item['dep_name'] ?></td>
-                 <td><a class="btn btn-info" href=<?= url("app/admins/view.php?view=<?=") . $item['admin_id'] ?> >View</a></td>
-                 <td><a class="btn btn-warning" href=<?= url("app/admins/view.php?Edit=<?=") . $item['admin_id'] ?> >Edit</a></td>
-                 <td><a class="btn btn-danger" href=<?= url("app/admins/index.php?Delete=<?=") . $item['admin_id'] ?> ></a>Deleta</td>
+                 <td><a class="btn btn-info" href="<?= url('app/instrcutors/view.php?view=' . $item['ins_id']) ?>">View</a></td>
+                <td><a class="btn btn-warning" href="<?= url('app/instrcutors/view.php?Edit=' . $item['ins_id']) ?>">Edit</a></td>
+                <td><a class="btn btn-danger" href="<?= url('app/instrcutors/index.php?Delete=' . $item['ins_id']) ?>">Delete</a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

@@ -17,7 +17,7 @@ if (isset($_POST['send'])) {
     $password = "12345678";
     $hash_password = password_hash($password, PASSWORD_DEFAULT);
     $hasImage = false;
-
+     $image_name = null;
     if (!empty($_FILES['image']['name'])) {
         $image_name = time() . $_FILES['image']['name'];
         $temp_name = $_FILES['image']['tmp_name'];
@@ -45,12 +45,12 @@ if (isset($_POST['send'])) {
     $track = $_POST['track'];
     $linkedin = $_POST['linkedin'];
 
-   $insert_instructor = "INSERT INTO `instructors` (department_id, track, linkedin, user_id) VALUES ($department, '$track', '$linkedin', $user_id)";
+   $insert_instructor = "INSERT INTO instructors  ( email, dep_name, track, linkedin, image_name)VALUES ( '$email', '$dep_name', '$track', '$linkedin', '$image_name')";
     $insData = mysqli_query($conn, $insert_instructor);
 
     // die;
     $_SESSION['success'] = "Instructor Added Successfully";
-    redirect('app/instructors/');
+    redirect('app/instructors/index.php');
 }
 ?>
 
