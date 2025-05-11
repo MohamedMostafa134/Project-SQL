@@ -13,6 +13,10 @@ if (isset($_POST['send'])) {
     $email = $_POST['email'];
     $group = $_POST['group'];
 
+    
+    $password = "12345678";
+    $hash_password = password_hash($password, PASSWORD_DEFAULT);
+
     $hasImage = false;
     if (!empty($_FILES['image']['name'])) {
         $image_name = time() . $_FILES['image']['name'];
@@ -21,17 +25,28 @@ if (isset($_POST['send'])) {
         move_uploaded_file($temp_name, $location);
         $hasImage = true;
     }
+
     if ($hasImage) {
-        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', '$image_name','$group') ";
+        $Create_User = "INSERT INTO users VALUES (null , '$name', '$email','$hash_password' ,'$image_name' ,'student') ";
     } else {
-        $createStudent = "INSERT INTO students VALUES (null , '$name', '$email', Default,'$group') ";
+        $Create_User = "INSERT INTO users VALUES (null , '$name', '$email','$hash_password' ,Default,'student') ";
     }
 
-    $insterStudents = mysqli_query($conn, $createStudent);
+    $insert_user = mysqli_query($conn, $Create_User);
+    // Read
+    $selectUser = "SELECT * FROM users WHERE email = '$email'";
+    $userData = mysqli_query($conn, $selectUser);
+    $userAllData = mysqli_fetch_assoc($userData);
+    $user_id = $userAllData['id'];
+
+
+    $createStudent = "INSERT INTO students (`user_id`, `group_id`) VALUES ('$user_id', '$group')";
+    $insertStudents = mysqli_query($conn, $createStudent);
+
 
     $_SESSION['success'] = "student Added Successfully";
 
-    redirect('app/students/');
+    redirect('app/strudents/index.php');
 }
 ?>
 

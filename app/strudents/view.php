@@ -13,14 +13,14 @@ if ($_GET['view']) {
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Instructor Data</h1>
+        <h1>Student </h1>
     </div><!-- End Page Title -->
 
     <section class="section">
         <div class="row justify-content-center">
             <div class="col-lg-4">
                 <div class="card-body">
-                    <h5 class="card-title">Instructor Details
+                    <h5 class="card-title">Student Data
                         <a class="btn float-end" href="./index.php">Back</a>
                     </h5>
                 </div>
@@ -31,12 +31,11 @@ if ($_GET['view']) {
                         <img src="<?= url('assets/img/default.jpg') ?>" alt="">
                     <?php endif; ?>
                     <div class="details row justify-content-start">
-                        <h5 class="col-10"><strong>Name :</strong> <?= $student['name'] ?> </h5>
+                        <h5 class="col-10"><strong>Name :</strong> <?= $student['student_name'] ?> </h5>
                         <h5 class="col-10"><strong>Email :</strong> <?= $student['email'] ?> </h5>
-                        <h5 class="col-10"><strong>Department :</strong> <?= $student['department'] ?> </h5>
                         <h5 class="col-10"><strong>Group :</strong> <?= $student['group_name'] ?> </h5>
-                        <h5 class="col-10"><strong>Assigned Instructor :</strong> <?= $student['instructor'] ?> </h5>
                         <h5 class="col-10"><strong>Start Date :</strong> <?= $student['start_date'] ?> </h5>
+                        <h5 class="col-10"><strong>Instructor Name :</strong> <?= $student['instructor_name'] ?> </h5>
                     </div>
                 </div>
             </div>

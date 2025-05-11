@@ -13,31 +13,48 @@ $SELECTAdmins = "SELECT * FROM admin_data";
 $admins = mysqli_query($conn ,$SELECTAdmins);
 $numberOfadmins = mysqli_num_rows($admins);
 
+       $errors=[];
 
-
-if(isset($_POST['send'])){
+   if(isset($_POST['send'])){
     #User Table
-    $name =$_POST['name'];
-    $email =$_POST['email'];
+    $name = filter_validation($_POST['name']);
+    $email = filter_validation($_POST['email']);
+
     $password="12345678";
     $hash_password= password_hash($password, PASSWORD_DEFAULT);
     $type="admin";
     $has_image =false ;
-    if(!empty($_FILES['image']['name'])){
+    if(string_validation($email)){
+      $errors[]='Please Enter Valid Email';
+    }
+    if(string_validation($name)){
+      $errors[]="Please Enter Valid Name";
+    }
+    if(empty($errors)){
+      if(!empty($_FILES['image']['name'])){
       $image_name=time() . $_FILES['image']['name'];
       $temp_name=$_FILES['image']['tmp_name'];
-  $location ="../../upload/users" . $image_name ;
-  move_uploaded_file($temp_name,$location);
-    $has_image =true ;
+      $image_size=$_FILES['image']['size'];
+      $image_type=$_FILES['image']['size'];
+      if(file_size_validation($image_size)){
+        $errors[]= "Your Image Biiger Than 2 Miga";
+      }
+      if(file_type_validation($image_type , 'image/png', 'image/jpg', 'image/jif', 'image/jpeg')){
+        $errors[]= "Your File Is Not Image";
+      }
+           $location ="../../upload/users" . $image_name ;
+           if(empty($errors)) {
+           move_uploaded_file($temp_name,$location);
+           $has_image =true ;
+     }
+      
     }
     if ($has_image) {
       $createUser ="INSERT INTO users VALUES (null,'$name','$email','$hash_password','$image_name','$type')";
      }else{
       $createUser ="INSERT INTO users VALUES (null,'$name','$email','$hash_password',Default,'$type')";
      } 
-    
-    
-    $insertUser = mysqli_query($conn ,$createUser);
+      $insertUser = mysqli_query($conn ,$createUser);
      #Insert
      
      
@@ -46,19 +63,32 @@ if(isset($_POST['send'])){
     $userData = mysqli_query($conn ,$selectuser);
     $userAllData = mysqli_fetch_assoc($userData);
     $user_id = $userAllData['id'];
+    }
+    
+    
+    
+   
 
     #Admins Table
-    $position =$_POST['position'];
+    $position =filter_validation($_POST['position']);
+    if(string_validation($position,1,3)){
+      $errors[]="Please Enter Valid Position";
+    }
     if ($numberOfadmins > 0){
-        $lead =$_POST['lead'];
+        $lead =filter_validation($_POST['lead']);
     }else {
         $lead =NULL;
     }
+     if(string_validation($lead,1,3)){
+      $errors[]="Please Enter Valid Leader";
+    }
+   if(empty($errors)){
     $createAdmin = "INSERT INTO admins VALUES (NULL, $position, $user_id, " . ($lead ? $lead : 'NULL') . ")";
     $insertAdmin= mysqli_query($conn , $createAdmin);
     $_SESSION['success']= "Create Admin Successfully";
 
     redirect('app/admins/index.php');
+   }
 }
 ?>
 
@@ -66,7 +96,7 @@ if(isset($_POST['send'])){
 <main id="main" class="main">
 
 <div class="pagetitle">
-  <h1>Form <?= print_r($_FILES)?></h1>
+  <h1></h1>
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -83,7 +113,15 @@ if(isset($_POST['send'])){
           <h5 class="card-title">Add New Admin
           <a href="./index.php" class="btn btn-info float-end"> Back New </a>
           </h5>
-
+       <?php if(!empty($errors)): ?>
+        <div class="alert alert-danger">
+          <ul>
+            <?php foreach($errors as $err): ?>
+              <li><?= $err?></li>
+              <?php endforeach ?>
+          </ul>
+        </div>
+        <?php endif; ?>
       <div class="card">
         <div class="card-body">
             
@@ -94,11 +132,11 @@ if(isset($_POST['send'])){
           <form method="post" class="row g-3" enctype="multipart/form-data">
             <div class="col-12">
               <label for="inputNanme4" class="form-label">Admin Name</label>
-              <input type="text" name="name" class="form-control" id="inputNanme4"required>
+              <input type="text" name="name" class="form-control" id="inputNanme4">
             </div>
             <div class="col-12">
               <label for="inputEmail4" class="form-label">Email</label>
-              <input type="email" name="email" class="form-control" id="inputEmail4"required>
+              <input type="email" name="email" class="form-control" id="inputEmail4">
             </div>
             <div class="col-12">
               <label for="image" class="form-label">Proflie Image</label>
@@ -107,7 +145,7 @@ if(isset($_POST['send'])){
             <div class="col-12">
                 <label for=""class="form-label">positions</label>
                 <select name="position" class="from-select">
-                    <option disabled selected> Select Position </option>
+                    <option value="" selected> Select Position </option>
                     <?php foreach($positions as $item): ?>
                     <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
                     <?php endforeach; ?>
@@ -118,7 +156,7 @@ if(isset($_POST['send'])){
 
                 <label for=""class="form-label">Lead By</label>
                      <select name="lead" class="from-select">
-                     <option disabled selected> Select Leader </option>
+                     <option  value="" selected> Select Leader </option>
                      <?php foreach($admins as $item): ?>
                      <option value="<?= $item['admin_id'] ?>"><?= $item['user_name'] ?></option>
                      <?php endforeach; ?>

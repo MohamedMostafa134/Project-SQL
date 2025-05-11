@@ -10,7 +10,7 @@ if($_GET['view']){
     $id =$_GET['view'];
     $admins = "SELECT * FROM `admin_data` where admin_id= $id ";
     $allAdmins = mysqli_query($conn, $admins);
-    $admin =mysqli_fetch_assoc($allAdmins);
+    $admin = mysqli_fetch_assoc($allAdmins);
 }
 
 ?>
@@ -37,9 +37,9 @@ if($_GET['view']){
 
       <div class="card">
         <?php if (!empty($admin['image'])): ?>
-    <img src="<?= url('upload/users/') . $admin['image'] ?>" alt="">
+            <img src="<?= url('upload/users/') . $admin['image'] ?>" alt="">
           <?php else: ?>
-    <img src="<?= url('assets/images.jpeg') ?>" alt="">   
+            <img src="<?= url('assets/images.jpeg') ?>" alt="">   
           <?php endif; ?>
         <div class="card-body">
           <h5>User user_name:<?= $admin['user_name']?></h5>

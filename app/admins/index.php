@@ -8,7 +8,7 @@ include_once '../../shared/allhead.php';
 $count = 1;
 // var_dump($_SESSION['auth']); // remove after testing
 
-$admins = "SELECT * FROM `admin_data`";
+$admins = "SELECT * FROM `admin_data`order by admin_id desc";
 $allAdmins = mysqli_query($conn, $admins);
 
 

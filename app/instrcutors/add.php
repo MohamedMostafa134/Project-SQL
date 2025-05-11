@@ -45,12 +45,14 @@ if (isset($_POST['send'])) {
     $track = $_POST['track'];
     $linkedin = $_POST['linkedin'];
 
-   $insert_instructor = "INSERT INTO instructors  ( email, dep_name, track, linkedin, image_name)VALUES ( '$email', '$dep_name', '$track', '$linkedin', '$image_name')";
+   $insert_instructor = "INSERT INTO instructors  (department_id, track, linkedin, user_id) VALUES ('$department', '$track', '$linkedin', '$user_id')";
+
     $insData = mysqli_query($conn, $insert_instructor);
 
     // die;
     $_SESSION['success'] = "Instructor Added Successfully";
-    redirect('app/instructors/index.php');
+
+    redirect('app/instrcutors/index.php');
 }
 ?>
 

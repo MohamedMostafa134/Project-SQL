@@ -1,6 +1,6 @@
 <?php 
 include_once './env/functions.php';
-auth();
+auth('instrcutors', 'strudents');
 
 include_once './shared/allhead.php';
 ?>

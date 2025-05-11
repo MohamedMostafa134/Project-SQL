@@ -1,6 +1,6 @@
 <?php
 include_once '../../env/functions.php';
-auth();
+auth('instrcutors');
 
 include_once '../../shared/allhead.php';
 $count = 1;
@@ -8,22 +8,24 @@ $count = 1;
 $instructors = "SELECT * FROM `instructor_data`";
 $allInstructors = mysqli_query($conn, $instructors);
 
- if ($_GET['delete']) {
-     $id = $_GET['delete'];
+if ($_GET['delete']) {
+    $id = $_GET['delete'];
 
-     $instructor = "SELECT * FROM `instructor_data` WHERE id = $id";
-     $oneInstructor = mysqli_query($conn, $instructor);
-     $instructorData = mysqli_fetch_assoc($oneInstructor);
+    $instructor = "SELECT * FROM `instructors` where id = $id";
+    $instructor = mysqli_query($conn, $instructor);
+  
+    $instructorData=mysqli_fetch_assoc($instructor);
 
-     $instructorDelete = "DELETE FROM instructors WHERE id = $id";
-     mysqli_query($conn, $instructorDelete);
+    $instructorDelete = "DELETE FROM instructors WHERE id = $id";
+    mysqli_query($conn, $instructorDelete);
 
+    $userId = $instructorData['user_id'];
+    $instructorDelete = "DELETE FROM users where id =  $userId";
+    mysqli_query($conn , $instructorDelete);
 
-     $_SESSION['success'] = "Instructor Deleted Successfully";
-     redirect('app/instructors/');
- }
-
-
+    $_SESSION['success'] = "Instructor Deleted Successfully";
+    redirect('app/instrcutors/index.php');
+}
 
 
 ?>
@@ -45,9 +47,9 @@ $allInstructors = mysqli_query($conn, $instructors);
 
                     if (isset($_SESSION['success'])): ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong><?= $_SESSION['success'] ?></strong>
+                            <?= $_SESSION['success'] ?>
                             <form method="post" action="<?= url("env/functions.php") ?>">
-                                <button type="submit" name="closeSession" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button name ="CloseSession" type="submit" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 <input type="hidden" value="<?= $fullPath ?>" name="fullpath">
                             </form>
                         </div>
@@ -78,11 +80,11 @@ $allInstructors = mysqli_query($conn, $instructors);
                                         <td><?= $count++ ?></td>
                                         <td><?= $item['ins_id'] ?></td>
                                         <td><?= $item['track'] ?></td>
-                 <td><?= $item['name'] ?></td>
-                 <td><?= $item['dep_name'] ?></td>
-                 <td><a class="btn btn-info" href="<?= url('app/instrcutors/view.php?view=' . $item['ins_id']) ?>">View</a></td>
-                <td><a class="btn btn-warning" href="<?= url('app/instrcutors/view.php?Edit=' . $item['ins_id']) ?>">Edit</a></td>
-                <td><a class="btn btn-danger" href="<?= url('app/instrcutors/index.php?Delete=' . $item['ins_id']) ?>">Delete</a></td>
+                                        <td><?= $item['name'] ?></td>
+                                        <td><?= $item['dep_name'] ?></td>
+                                        <td><a class="btn btn-info" href="<?= url('app/instrcutors/view.php?view=' . $item['ins_id']) ?>">View</a></td>
+                                        <td><a class="btn btn-warning" href="<?= url('app/instrcutors/view.php?view=' . $item['ins_id']) ?>">Edit</a></td>
+                                        <td><a class="btn btn-danger" href="<?= url('app/instrcutors/index.php?delete=' . $item['ins_id']) ?>">Delete</a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
